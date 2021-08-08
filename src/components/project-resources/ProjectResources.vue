@@ -1,68 +1,34 @@
 <template>
-    <li>
-        <base-card>
-            <header>
-                <h3>{{ title }}</h3>
-                <base-button>Delete Project</base-button>
-            </header>
-            <nav>
-                <a :href="link">View Project</a>
-            </nav>
-        </base-card>
-    </li>
+<!-- this is the storedResouces -->
+    <ul>
+        <ProjectArea 
+            v-for="project in projectRes"
+            :key="project.id"
+            :id="project.id"
+            :title="project.title"
+            :link="project.link"
+            :description="project.description"
+        />
+    </ul>
 </template>
 
 <script>
+import ProjectArea from './ProjectArea.vue';
 export default {
-    props: {
-        id: {
-            type: Number,
-            required: true
-        },
-        title: {
-            type: String,
-            required: true,
-        },
-        link: {
-            type: String,
-            required: true,
-        },
-        description: {
-            type: String,
-            required: true,
-        }
-    }
+    components: {
+        ProjectArea
+    },
+    //add in the inject for projectRes
+    inject: ['projectRes']
 }
 </script>
 
 <style scoped>
-li {
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     margin: auto;
     max-width: 40rem;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-h3 {
-    font-size: 1.25rem;
-    margin: 0.5rem 0;    
-}
-
-p {
-    margin: 0.5rem 0;
-}
-
-a {
-    text-decoration: none;
-    color: #c35c00;
-}
-
-a:hover,
-a:active {
-    color: #c89300;
 }
 </style>

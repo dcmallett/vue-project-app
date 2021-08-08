@@ -1,17 +1,18 @@
 <template>
   <TheHeader :title="'Vue Project Planner'" />
-  <ProjectArea />
+  <TheProjects />
 </template>
 
 <script>
 import TheHeader from './components/layout/TheHeader.vue';
-import ProjectArea from './components/project-resources/ProjectArea.vue';
+import TheProjects from './components/project-resources/TheProjects.vue'
 
 export default {
   name: 'App',
   components: {
     TheHeader,
-    ProjectArea
+    TheProjects
+    
   }
 }
 </script>

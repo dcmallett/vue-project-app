@@ -1,28 +1,70 @@
 <template>
-  <ul>
-      <ProjectResources 
-        v-for="project in projectRes" 
-        :key="project.id"
-        :title="project.title"
-        :link="project.link"
-        :description="project.description"
-      />
-  </ul>
+    <!-- this is the learning resources-->
+ <li>
+        <base-card>
+            <header>
+                <h3>{{ title }}</h3>
+                <base-button>Delete Project</base-button>
+            </header>
+            <p>{{ description }}</p>
+            <nav>
+                <a :href="link">View Project</a>
+            </nav>
+        </base-card>
+    </li>
 </template>
 
 <script>
-import ProjectResources from './ProjectResources.vue';
 export default {
-    ProjectResources
+    props: {
+        id: {
+            type: Number,
+            required: true
+        },
+        title: {
+            type: String,
+            required: true,
+        },
+        link: {
+            type: String,
+            required: true,
+        },
+        description: {
+            type: String,
+            required: true,
+        }
+    },
 }
 </script>
 
 <style scoped>
-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+li {
     margin: auto;
     max-width: 40rem;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h3 {
+    font-size: 1.25rem;
+    margin: 0.5rem 0;    
+}
+
+p {
+    margin: 0.5rem 0;
+}
+
+a {
+    text-decoration: none;
+    color: #c35c00;
+}
+
+a:hover,
+a:active {
+    color: #c89300;
 }
 </style>
