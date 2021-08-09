@@ -1,15 +1,25 @@
 <template>
   <h2>Add a new project</h2>
 
+    <base-modal v-if="inputIsInvalid" title="Input is invalid" @closeModal="togglaModalDialog">
+        <template #default>
+            <p>Unfortunatley, at least one input field was invalid</p>
+            <p>Please try again</p>
+        </template>
+        <template #actions>
+            <base-button @click="togglaModalDialog">Close</base-button>
+        </template>
+    </base-modal>
+
   <base-card>
     <form @submit.prevent="AddProjectHandler">
         <div class="form-control">
             <label for="title">Project Title:</label>
-            <input id="title" type="text" name="title" placeholder="Please add a project" required ref="enteredProjTitle" />
+            <input id="title" type="text" name="title" placeholder="Please add a project" ref="enteredProjTitle" />
         </div>
             <div class="form-control">
             <label for="link">Project Url:</label>
-            <input id="link" type="text" name="link" placeholder="Please add a link to the project" required ref="enteredProjLink" />
+            <input id="link" type="text" name="link" placeholder="Please add a link to the project" ref="enteredProjLink" />
         </div>
         <div class="form-control">
             <label for="description">Project Description:</label>
@@ -27,20 +37,24 @@ export default {
             inputIsInvalid: false
         }
     },
+    inject: ['addProject'],
     methods: {
         AddProjectHandler() {
-            this.projTitle = this.$refs.enteredProjTitle.value;
-            this.projLink = this.$refs.enteredProjLink.value;
-            this.projDesc = this.$refs.enteredProjDesc.value;
+            const projTitle = this.$refs.enteredProjTitle.value;
+            const projLink = this.$refs.enteredProjLink.value;
+            const projDesc = this.$refs.enteredProjDesc.value;
             
             //if any of these are equal to an empty string out modal popup will trigger and display.
-            if (projTitle.trim === '' || projLink.trim === '' || projDesc.trim === '') {
-                this.inputIsInvalid =  true;
+            if (projTitle.trim() === '' || projLink.trim() === '' || projDesc.trim() === '') {
+                this.inputIsInvalid = true;
                 return;
             }
-        }
 
-        //this.addProject for when we provide and inject.
+            this.addProject(projTitle, projLink, projDesc)
+        },
+        togglaModalDialog() {
+            this.inputIsInvalid = false;
+        }
     }
 }
 </script>

@@ -4,7 +4,7 @@
         <base-card>
             <header>
                 <h3>{{ title }}</h3>
-                <base-button>Delete Project</base-button>
+                <base-button @click="deleteProject(id)">Delete Project</base-button>
             </header>
             <p>{{ description }}</p>
             <nav>
@@ -16,24 +16,8 @@
 
 <script>
 export default {
-    props: {
-        id: {
-            type: Number,
-            required: true
-        },
-        title: {
-            type: String,
-            required: true,
-        },
-        link: {
-            type: String,
-            required: true,
-        },
-        description: {
-            type: String,
-            required: true,
-        }
-    },
+    props: ['id', 'title', 'description', 'link'],
+    inject: ['deleteProject']
 }
 </script>
 

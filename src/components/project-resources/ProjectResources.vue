@@ -2,7 +2,7 @@
 <!-- this is the storedResouces -->
     <ul>
         <ProjectArea 
-            v-for="project in projectRes"
+            v-for="project in projects"
             :key="project.id"
             :id="project.id"
             :title="project.title"
@@ -18,8 +18,7 @@ export default {
     components: {
         ProjectArea
     },
-    //add in the inject for projectRes
-    inject: ['projectRes']
+    inject: ['projects']
 }
 </script>
 

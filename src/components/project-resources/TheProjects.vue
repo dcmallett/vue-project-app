@@ -4,6 +4,14 @@
         <base-button @click="setSelectedTab('project-resources')">Project Resources</base-button>
         <base-button @click="setSelectedTab('add-project')">Add Projects</base-button>
     </base-card>
+
+    
+    <!-- 
+        NOTE: you need to make sure you use the component element when you want to display tabs else nothing will render
+    -->
+     <keep-alive>
+            <component :is="selectedTab"></component>
+    </keep-alive>
 </template>
 
 <script>
@@ -17,41 +25,51 @@ export default {
     },
     data() {
         return {
-            selectedTab: 'the-projects',
-            projects: [
+            selectedTab: 'project-resources',
+            projectResources: [
                 {
                     id: 'official-guide',
                     title: 'Official-Guide',
+                    link: 'https://v3.vuejs.org/', 
                     description: 'This is the offical VueJs Guide',
-                    link: 'https://v3.vuejs.org/'
                 },
                 {
                     id: 'twitch',
                     title: 'Twitch',
+                    link: 'twitch.tv',
                     description: 'This is a live streaming platform',
-                    link: 'twitch.tv'
                 },
             ]
         }
     },
     provide() {
         return {
-            projectRes: this.ProjectResources
+            projects: this.projectResources,
+            addProject: this.addProject,
+            //left side i.e
+            //delete project can be anyname
+            //this.deleteProject for example needs to match the method we create here.
+            deleteProject: this.deleteProject
         }
     },
     methods: {
         setSelectedTab(tab) {
             this.selectedTab = tab;
         },
-        AddProject(title, url, description) {
+        addProject(title, url, description) {
             const newProject = {
                 id: new Date().toISOString(),
                 title: title,
                 link: url,
                 description: description
             };
-            this.ProjectResources.unshift(newProject);
+            this.projectResources.unshift(newProject);
             this.selectedTab = ('project-resources');
+        },
+
+        deleteProject(projId) {
+            const projIndex = this.projectResources.findIndex(project => project.id === projId)
+            this.projectResources.splice(projIndex, 1);
         }
     }
 }
